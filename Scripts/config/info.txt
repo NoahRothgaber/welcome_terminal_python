@@ -1,2 +1,0 @@
-Name = Noah
-Zip = 03079
