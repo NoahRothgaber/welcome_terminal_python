@@ -1,10 +1,14 @@
 import os
 import os.path
 import random
-
+from subprocess import run
 
 def reset_color():
     print("\033[0;0;0m", end="")
+
+
+def print_with_lolcat(print_val):
+    run(["lolcat"], input=print_val, text=True)
 
 
 class SetupHost():
@@ -25,6 +29,7 @@ class SetupHost():
         self.unique_greetings()
         self.file_check_info()
         self.greet_specific_user()
+        # Run script for actual code purpose
 
     def file_check_info(self):
         directory = './config'
@@ -45,19 +50,20 @@ class SetupHost():
                         self.user_name = line[7:]
                     else:
                         self.user_zip = line[6:]
-            print("Name from file:\t", self.user_name, "Zip from file:\t"
-                  ,self.user_zip, sep='')
 
     def file_check_greeting(self):
         directory = './config'
         filename = 'good_synonyms'
         file_path = os.path.join(directory, filename)
+        print(os.getcwd())
         if os.path.exists(file_path):
             # File does not exist, create it
             with open(file_path, 'r') as file:
                 for line in file:
                     self.word_list.append(line)
         else:
+            with open(file_path, 'w') as file:
+                file.write('wtf')
             print("Something went real bad.. uh oh")
         self.list_file_total = len(self.word_list)
 
@@ -94,7 +100,7 @@ class SetupHost():
         self.zip_capture()
 
     def greeting(self):
-        print(self.welcome_prompt_p1)
+        print_with_lolcat(self.welcome_prompt_p1)
         print(f'\033[1;31m{self.welcome_prompt_p2}')
         reset_color()
 
@@ -121,8 +127,8 @@ class SetupHost():
                 file.write(used_word)
 
     def greet_specific_user(self):
-        print(f'Glad to see you {self.user_name.rstrip()}!',
-              f' Hope your day is going '
-              f'{self.unique_greeting_str.rstrip()}!''',
-              sep='')
+        print_with_lolcat(f'Glad to see you {self.user_name.rstrip()}!' +
+              f' Hope your day is going ' +
+              f'{self.unique_greeting_str.rstrip()}!'''
+                          )
         self.write_used_words()
