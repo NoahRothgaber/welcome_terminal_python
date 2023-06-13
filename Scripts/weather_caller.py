@@ -1,39 +1,42 @@
-# Import the beautifulsoup
-# and request libraries of python.
-import requests
-import bs4
+# https://pyowm.readthedocs.io/en/latest/v3/code-recipes.html
+from pyowm.owm import OWM
+from pyowm.utils.config import get_config_from
 
-# Make two strings with default google search URL
-# 'https://google.com/search?q=' and
-# our customized search keyword.
-# Concatenate them
-text = "weather+03079"
-url = 'https://google.com/search?q=' + text
+''' will try to implement a hard cap to the number of calls per day
+by checking a directory of weather calls for the area that are
+stored when the api is called. If a file exists with the current 
+day (or hour) then i will just print that files weather data. 
+The API allows for 10,000 free calls per day but I want to ensure
+I do not exceed the amount.
 
-print(url)
-# Fetch the URL data using requests.get(url),
-# store it in a variable, request_result.
-request_result = requests.get(url)
+Here are the examples searching via city ids
 
-# Creating soup from the fetched request
-soup = bs4.BeautifulSoup(requests.get("https://www.google.com/search?q=weather+03079").content)
-print(soup.find("div", attrs={'id', 'wob_loc'}).text)
-# soup.find.all( h3 ) to grab
-# all major headings of our search result,
-'''
-In [7]: soup = BeautifulSoup(requests.get("https://www.google.com/search?q=weather+london").content)
+from pyowm.owm import OWM
+owm = OWM('your-api-key')
+reg = owm.city_id_registry()
 
-In [8]: soup.find("div", attrs={'id': 'wob_loc'}).text
-Out[8]: 'London, UK'
+# All Ontario cities in the uS
+ontarios_in_us = reg.ids_for('Ontario', country='US', matching='exact')  # five results
+
+# Ontario in Canade
+ontario_in_canada = reg.ids_for('Ontario', country='CA', matching='exact')  # one result: [(6093943, 'Ontario', 'CA', None, 49.250141, -84.499832)]
+
+# Ontario in the state of New York
+ontario_in_ny = reg.ids_for('Ontario', country='US', state='NY', matching='exact')  # one result: [(5129887, 'Ontario', 'US', 'NY', 43.220901, -77.283043)]
 '''
 
 
+class WeatherCaller:
+    open_weather_key = ''
+    owm = OWM(open_weather_key)
+    config_dict = get_config_from("./config/owm_config.json")
+    reg = owm.city_id_registry()
 
-# heading_object = soup.find_all("div", {"class": "UQt4rd"})  # 'UQt4rd' = what i want
+    def __init__(self):
+        self.load_key()
+        self.owm = OWM(self.open_weather_key, self.config_dict)
 
-# Iterate through the object
-# and print it as a string.
-'''for info in heading_object:
-    print(info.getText())
-    print("------")
-    '''
+    def load_key(self):
+        with open("./config/dont_commit", 'r') as file:
+            for line in file:
+                self.open_weather_key = line
