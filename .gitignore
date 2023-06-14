@@ -1,3 +1,5 @@
 # ignore keys
 /Scripts/config/dont_commit
-
+/Scripts/config/info.txt
+/Scripts/config/good_synonyms_parsed
+/Scripts/config/used_dadjokes
