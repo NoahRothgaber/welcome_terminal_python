@@ -5,4 +5,4 @@ Once ran once following executions will;
                                         print current weather at provided city/state, 
                                         print dad joke, 
                                         and prompt for updates via apt. 
-If you are to use this program yourself, you will need to provide and open weather map api key in a file called "dont_commit". 
+If you are to use this program yourself, you will need to provide an open weather map api key in a file called "dont_commit". 
