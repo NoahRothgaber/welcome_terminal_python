@@ -160,7 +160,7 @@ class SetupHost():
                                   "Please provide your countries two "
                                   "digit code.\nIf you're unsure what your country's"
                                   " code is... type \"country\"\n")
-                input()
+                temp_country =   input()
             if temp_country == "country":
                 country_codes()
                 temp_country = ""
