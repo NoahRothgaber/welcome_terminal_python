@@ -1,0 +1,2 @@
+The temperature in Houston, TX is 98.6 degrees with Few Clouds
+The humidity is 51%, and there is a 0% chance of rain.
