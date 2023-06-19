@@ -3,3 +3,6 @@
 /Scripts/config/info.txt
 /Scripts/config/good_synonyms_parsed
 /Scripts/config/used_dadjokes
+/Scripts/config/forecasts
+!my_directory/
+my_directory/*
