@@ -25,6 +25,7 @@ def print_with_lolcat(print_val):
 def get_forecast_path():
     time_str = time.asctime()
     index = 0
+    year = time_str[-4:]
     for char in time_str:
         if char == " ":
             time_str = time_str[:index] + "_" + time_str[index + 1:]
@@ -37,6 +38,7 @@ def get_forecast_path():
         if count_ == 3:
             time_str = time_str[:index + 3]
         index += 1
+    time_str = time_str + '_' + year
     path = './config/forecasts'
     path = os.path.join(path, time_str + '.txt')
     return path
